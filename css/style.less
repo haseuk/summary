@@ -1,0 +1,17 @@
+@import "asset";
+@use-rem: true;
+@rem: 32;
+
+html { font-size: 18px; }
+
+input, select, textarea { outline: none; font-family: notokr, sans-serif; }
+.web { .hide!important; }
+table { table-layout: fixed; border-collapse: collapse; }
+img { backface-visibility: hidden; }
+
+.container {
+
+  [mov] { .rel; transition: opacity 0.7s, transform 0.7s;}
+  [mov="down"] { opacity: 0; transform: translateY(40px); }
+  [mov="in"] { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+}
