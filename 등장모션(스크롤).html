@@ -16,5 +16,24 @@
       <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
     </div>
   </div>
+
+
+  <script>
+    function movCheck() {
+      var top = document.querySelector('.container header').offsetHeight;
+      var bottom = window.innerHeight;
+      var i = mov.length;
+      var r;
+      while(i--) {
+        r = mov[i].getBoundingClientRect();
+        if (r.bottom < top) mov[i].setAttribute('mov', 'up')
+        else if (r.top > bottom) mov[i].setAttribute('mov', 'down')
+        else mov[i].setAttribute('mov', 'in')
+      }
+    }
+    window.addEventListener('scroll', movCheck);
+    window.addEventListener('resize', movCheck);
+    movCheck();
+  </script>
 </body>
 </html>
