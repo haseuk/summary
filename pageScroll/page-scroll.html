@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>페이지 스크롤</title>
+  <style>
+    body { margin: 0; padding: 0;}
+    .container { font-size: 0; }
+    .container .gnb { position: fixed; left:0; top:0; width: 100%; z-index: 1; }
+    .container .gnb a { font-size:18px; width: 20%; height: 80px; background-color: aqua; display: inline-block; cursor: pointer; border-right: 1px solid; }
+    .container .box { font-size:18px; width: 100%; height: 1500px; opacity: 0.8; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>페이지 스크롤</h1>
+    <div class="gnb">
+      <a class="btn" onclick="go('#box1')">btn1</a>
+      <a class="btn" onclick="go('#box2')">btn2</a>
+      <a class="btn" onclick="go('#box3')">btn3</a>
+      <a class="btn" onclick="go('#box4')">btn4</a>
+    </div>
+    <div id="box1" class="box box1" style="background-color: rebeccapurple;margin-top: 80px;" >page1</div>
+    <div id="box2" class="box box2" style="background-color: darkcyan;">page2</div>
+    <div id="box3" class="box box3" style="background-color: sienna;">page3</div>
+    <div id="box4" class="box box4" style="background-color: navajowhite;">page4</div>
+  </div>
+
+  <script>
+    // 스크롤 이동 cubic bezier = EasingFunctions
+    function ease(t) {
+      return 1+(--t)*t*t*t*t;
+    }
+
+    var scrollTo = (function() { // (function() {})(); 바로 실행 = 코드 충돌방지(즉,스콥)
+      var active = 0;
+      return function (v) { // 저 밑에 go(selector) 에서 v를 받아옴
+        console.log(v)
+        var id = ++active;
+        var s = window.pageYOffset; //scrollY의 다른이름 = 문서가 수직으로 얼마나 스크롤됐는지 픽셀 단위로 반환
+        var target = Math.min(v,
+            Math.max(
+                document.body.scrollHeight,
+                document.documentElement.scrollHeight) - window.innerHeight
+        ); //target = 젤 작은수(v, 젤 큰수(페이지 전체 높이)-브라우저에 보이는 화면 높이)
+        var delta = target - s;
+        var duration = Math.abs(delta) / 30; // Math.abs는 절대값을 가져옴
+        var time = 0;
+        var last = s;
+        function move() {
+          if (id !== active) return;
+          time += 1;
+          var t = ease(time / duration);
+          if (window.pageYOffset !== last) return;
+          window.scroll(0, s + (delta * t));
+          last = window.pageYOffset;
+          if (time < duration) {
+            requestAnimationFrame(move);
+          }
+        }
+        requestAnimationFrame(move);
+      };
+    })();
+
+    function go(selector) {
+      scrollTo(selector ? document.querySelector(selector).offsetTop : 0);
+      // selector 가 있으면 ? #evt1.offsetTop의 값을 : 아니면 0 을 scrollTo에 반환
+      // offsetTop은 #evt1의 절대위치값을 가져온다. 즉, 브라우저 화면상의 높이값
+    }
+  </script>
+</body>
+</html>

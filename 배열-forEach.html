@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Array.prototype.forEach.call</title>
+  <style>
+    .btn { width: 70px; height: 50px; display: inline-block; background-color: navajowhite; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="btn btn1">1</button>
+    <button class="btn btn2">2</button>
+    <button class="btn btn3">3</button>
+    <button class="btn btn4">4</button>
+    <button class="btn btn5">5</button>
+    <button class="btn btn6">6</button>
+    <button class="btn btn7">7</button>
+    <button class="btn btn8">8</button>
+    <button class="btn btn9">9</button>
+    <button class="btn btn10">10</button>
+  </div>
+<script>
+  var btns = document.querySelectorAll('.btn');
+
+  [].forEach.call(btns, function(el, idx, arr) {
+    el.addEventListener('click', function() {
+      arr.forEach(function(i) {
+        i.classList.remove('on')
+      });
+      el.classList.add('on')
+    });
+  });
+
+
+
+
+</script>
+</body>
+</html>
